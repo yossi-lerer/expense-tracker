@@ -1,4 +1,6 @@
 import time
+from rich.console import Console
+from rich.table import Table
 
 def calculate_total(expenses: list):
     total_amount = 0
@@ -7,11 +9,17 @@ def calculate_total(expenses: list):
     return total_amount
 
 def show_expenses(expenses: list):
+    table = Table(title="expenses")
+    table.add_column("data", justify="left", style="cyan")
+    table.add_column("title", justify="left", style="green")
+    table.add_column("category", justify="left", style="green")
+    table.add_column("amount", justify="left", style="green")
+  
     for expense in expenses:
-        print("\n")
-        for feild in expense:
-            print(f"{feild}: {expense[feild]}")
-    print(f"total amount: {calculate_total(expenses)}")
+        table.add_row(expense['data'], expense['title'], expense['category'], str(expense['amount']))
+    console = Console()
+    console.print(table)
+    console.print(f"total amount: {calculate_total(expenses):.2f}", style="magenta")
 
 def add_expense(expenses: list, title: str, category: str, amount: float):
     expenses.append({'data': time.strftime("%Y-%m-%d"), 'title': title, 'category': category, 'amount': amount})
