@@ -46,7 +46,10 @@ def manager_flow(expenses):
     show_expenses(expenses)
     ask_more_expense = True
     while ask_more_expense:
-        ask_expense =questionary.text("Do you want to add another expense? 1 for 2 for No").ask()
+        ask_expense =questionary.select("Do you want to add another expense? 1 for 2 for No", choices=[
+        "1",
+        "2"
+    ]).ask()
         if ask_expense == "1":
             if ask_for_expense(expenses) != False:
                 show_expenses(expenses)
