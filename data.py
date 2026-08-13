@@ -1,1 +1,1 @@
-expenses = [{'data': '10/08/2026', 'title': '7 eleven', 'category': 'super', 'amount': 58}, {'data': '11/08/2026', 'title': 'wholt', 'category': 'food', 'amount': 150}]
+expenses = []

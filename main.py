@@ -1,5 +1,5 @@
 from data import expenses
-from expenses_func import show_expenses
+from expenses_func import manager_flow
 def main():
-    show_expenses(expenses)
+    manager_flow(expenses)
 main()
