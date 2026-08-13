@@ -1,6 +1,7 @@
 import time
 from rich.console import Console
 from rich.table import Table
+import questionary
 
 def calculate_total(expenses: list):
     total_amount = 0
@@ -25,10 +26,18 @@ def add_expense(expenses: list, title: str, category: str, amount: float):
     expenses.append({'data': time.strftime("%Y-%m-%d"), 'title': title, 'category': category, 'amount': amount})
 
 def ask_for_expense(expenses: list):
-    title = input("Enter the name of the expense. ")
-    category = input("Enter the category. ")
+    title = questionary.text("Enter the name of the expense").ask()
+    category = questionary.select(
+    "Enter the category?",
+    choices=[
+        "food",
+        "travel",
+        "school",
+        "entertainment",
+        "other"
+    ]).ask()
     try:
-        amount = float(input("Enter the expense amount. "))
+        amount = float(questionary.text("Enter the expense amount").ask())
     except:
         return False
     add_expense(expenses, title, category, amount)
@@ -37,7 +46,7 @@ def manager_flow(expenses):
     show_expenses(expenses)
     ask_more_expense = True
     while ask_more_expense:
-        ask_expense = input("Do you want to add another expense? 1 for 2 for No ")
+        ask_expense =questionary.text("Do you want to add another expense? 1 for 2 for No").ask()
         if ask_expense == "1":
             if ask_for_expense(expenses) != False:
                 show_expenses(expenses)
