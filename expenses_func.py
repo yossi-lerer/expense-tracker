@@ -2,6 +2,7 @@ import time
 from rich.console import Console
 from rich.table import Table
 import questionary
+import config
 
 def calculate_total(expenses: list):
     total_amount = 0
@@ -17,10 +18,10 @@ def show_expenses(expenses: list):
     table.add_column("amount", justify="left", style="green")
   
     for expense in expenses:
-        table.add_row(expense['data'], expense['title'], expense['category'], str(expense['amount']))
+        table.add_row(expense['data'], expense['title'], expense['category'], str(expense['amount']) + " " + config.currency)
     console = Console()
     console.print(table)
-    console.print(f"total amount: {calculate_total(expenses):.2f}", style="magenta")
+    console.print(f"total amount: {calculate_total(expenses):.2f} {config.currency}", style="magenta")
 
 def add_expense(expenses: list, title: str, category: str, amount: float):
     expenses.append({'data': time.strftime("%Y-%m-%d"), 'title': title, 'category': category, 'amount': amount})
